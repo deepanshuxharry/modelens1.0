@@ -11,6 +11,8 @@ import ProcessSection from "./components/process";
 import Portfolio from "./components/portfolio";
 import TeamSection from "./components/team";
 import WorkGallery from "./components/workgallery";
+import MakeupArtist from "./components/MakeupArtist";
+import Photographers from "./components/Photographers";
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
                 <Portfolio/> */}
                 <WorkGallery/>
                 <ProcessSection/>
+               
+
              
                {/* <TeamSection/> */}
               
@@ -45,6 +49,8 @@ function App() {
           <Route path="/services" element={<ServiceCards />} />
           <Route path="/our-models" element={<OurModels />} />
           <Route path="/team" element={<TeamSection />} />
+          <Route path="/makeupartist" element={<MakeupArtist />} />
+          <Route path="/photographers" element={<Photographers />} />
         </Routes>
         <Footer />
       </div>

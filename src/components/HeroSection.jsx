@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Camera, Play, ArrowRight } from "lucide-react";
 
 const modelProfiles = [
-  { name: "Model 1", path: "/public/M1.JPG" },
-  { name: "Model 2", path: "/public/M2.JPG" },
-  { name: "Model 3", path: "/public/M3.JPG" },
-  { name: "Model 4", path: "/public/M4.JPG" },
-  { name: "Model 5", path: "/public/M5.JPG" },
-  { name: "Model 6", path: "/public/M6.JPG" },
-  { name: "Model 7", path: "/public/M7.JPG" },
-  { name: "Model 8", path: "/public/M8.JPG" },
+  { name: "Model 1", path: "M1.JPG" },
+  { name: "Model 2", path: "M2.JPG" },
+  { name: "Model 3", path: "M3.JPG" },
+  { name: "Model 4", path: "M4.JPG" },
+  { name: "Model 5", path: "M5.JPG" },
+  { name: "Model 6", path: "M6.JPG" },
+  { name: "Model 7", path: "M7.JPG" },
+  { name: "Model 8", path: "M8.JPG" },
 ];
 
 function HeroSection() {
@@ -53,8 +53,29 @@ function HeroSection() {
             </p>
 
             {/* Enhanced Call-to-Action Button */}
-            <div className="flex flex-wrap space-x-4 ">
+            {/* <div className="flex flex-wrap space-x-4 ">
               <button
+                className=" bgmain_clr group relative overflow-hidden px-6 py-2 md:px-8 md:py-3 rounded-full 
+                bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 
+                flex items-center justify-center space-x-2 
+                transform hover:-translate-y-1 hover:scale-105 
+                shadow-md hover:shadow-lg"
+              >
+                <span className="absolute inset-0  opacity-0 group-hover:opacity-20 transition-opacity"></span>
+                <Play className="mr-2 w-5 h-5 md:w-6 md:h-6 text-white" />
+                <span className="font-semibold text-sm md:text-base ">
+                  <a href="https://n3slge5h3us.typeform.com/to/oLy3MqVY" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+                </span>
+                <ArrowRight className="ml-2 w-5 h-5 md:w-6 md:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+            </div>
+          </div> */}
+
+<div className="flex flex-wrap space-x-4 ">
+              <a
+                href="https://n3slge5h3us.typeform.com/to/oLy3MqVY"
+                target="_blank"
+                rel="noopener noreferrer"
                 className=" bgmain_clr group relative overflow-hidden px-6 py-2 md:px-8 md:py-3 rounded-full 
                 bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 
                 flex items-center justify-center space-x-2 
@@ -67,9 +88,10 @@ function HeroSection() {
                   Schedule a Call
                 </span>
                 <ArrowRight className="ml-2 w-5 h-5 md:w-6 md:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </button>
+              </a>
             </div>
           </div>
+
 
           {/* Right Side: Image Gallery */}
           <div className="grid grid-cols-4 gap-2 md:gap-4 mt-8 md:mt-0">
@@ -95,7 +117,7 @@ function HeroSection() {
                 >
                   <Camera className="text-gray-300 absolute top-2 right-2 md:top-4 md:right-4 w-4 h-4 md:w-6 md:h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <p className="text-gray-100 font-semibold text-xs md:text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                    {model.name}
+                    {/* {model.name} */}
                   </p>
                 </div>
               </div>

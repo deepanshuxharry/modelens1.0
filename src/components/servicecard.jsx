@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ image, title, description, className = '' }) => {
   return (
@@ -34,24 +35,31 @@ const ServiceCards = () => {
 
   {/* Service Cards */}
   <div className="flex flex-wrap justify-center gap-10">
+  <Link to="/our-models">
     <ServiceCard
       image="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
       title="Models"
       description="Connect with professional model"
       className="group"
     />
-    <ServiceCard
+  </Link >
+
+  <Link to="/photographers">
+  <ServiceCard
       image="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
       title="Photographers"
       description="Find expert photographers to capture"
       className="group"
-    />
-    <ServiceCard
+    /></Link>
+
+<Link to="/makeupartist">
+<ServiceCard
       image="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
       title="Makeup Artists"
       description="Hire talented makeup"
       className="group"
     />
+</Link>   
   </div>
 </div>
 
