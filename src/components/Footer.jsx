@@ -26,8 +26,8 @@ const Footer = () => {
                   Models
                 </Link>
               </li>
-              <li><a href="#" className="hover:text-purple-500">Photographer</a></li>
-              <li><a href="#" className="hover:text-purple-500">Makeup Artists</a></li>
+              <li><Link to="/photographers" className="hover:text-purple-500">Photographers</Link></li>
+              <li><Link to="/makeupartist" className="hover:text-purple-500">Makeup Artists</Link></li>
             </ul>
           </div>
 
@@ -37,13 +37,13 @@ const Footer = () => {
             <p className="text-gray-700">New Delhi, Delhi</p>
             <p className="text-gray-700">+91 8178517101</p>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-purple-600 hover:text-purple-800">
+              <a href="https://www.instagram.com/modelens.in/" className="text-purple-600 hover:text-purple-800">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="text-purple-600 hover:text-purple-800">
+              <a href="https://www.linkedin.com/company/modelens/posts/?feedView=all" className="text-purple-600 hover:text-purple-800">
                 <i className="fab fa-linkedin"></i>
               </a>
-              <a href="#" className="text-purple-600 hover:text-purple-800">
+              <a href="mailto:modelensofficial@gmail.com" className="text-purple-600 hover:text-purple-800">
                 <i className="fab fa-google"></i>
               </a>
             </div>
