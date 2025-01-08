@@ -1,65 +1,121 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const ProcessSection = () => {
   const processSteps = [
     {
-      number: 1,
+      number: "01",
       title: "Discuss",
       description: "Meet with clients to understand their needs and requirements.",
-      animation: "fadeInRight",
+      icon: "💬"
     },
     {
-      number: 2,
+      number: "02",
       title: "Plan",
       description: "Create a detailed plan and storyboard for the shoot.",
-      animation: "fadeInRight",
+      icon: "📋"
     },
     {
-      number: 3,
+      number: "03",
       title: "Shoot",
       description: "Execute the photoshoot with our professional team and equipment.",
-      animation: "fadeInRight",
+      icon: "📸"
     },
     {
-      number: 4,
+      number: "04",
       title: "Edit",
       description: "Edit and refine the images to ensure top-notch quality.",
-      animation: "fadeInUp",
+      icon: "🎨"
     },
     {
-      number: 5,
+      number: "05",
       title: "Deliver",
       description: "Deliver the final product to the client, ready for use.",
-      animation: "fadeInUp",
+      icon: "🚀"
     },
   ];
 
-  return (
-    <section className="py-10 px-5 -100 text-center mb-10 mt-[65px]">
-       <div className="text-center mb-24">
-          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
-            bg-gradient-to-r from-white to-purple-400">
-            The Process - Behind The Scenes
-          </h1>
-          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full"/>
-        </div>
+  const sectionRef = useRef(null);
 
-      <div className="flex flex-wrap justify-center gap-5">
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    const stepElements = document.querySelectorAll('.process-step');
+    stepElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="py-20 px-4 md:px-8 max-w-7xl mx-auto relative">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"/>
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"/>
+      </div>
+
+      <div className="text-center mb-16 relative">
+        <span className="text-purple-400 text-sm font-medium tracking-wider uppercase mb-2 block">
+          Our Working Process
+        </span>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
+          bg-gradient-to-r from-white to-purple-400">
+          The Process - Behind The Scenes
+        </h1>
+        <div className="w-24 h-1 bg-purple-600 mx-auto rounded-full"/>
+      </div>
+
+      <div className="relative">
+        {/* Animated connecting line */}
+        <div className="absolute hidden md:block left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-600/30 via-purple-400/30 to-purple-600/30 -translate-x-1/2"/>
+
         {processSteps.map((step, index) => (
-          <div
-            key={index}
-            className="flex-1 min-w-[200px] bg-white rounded-lg shadow-md p-5"
-            data-animation={step.animation}
+          <div 
+            key={index} 
+            className={`process-step relative flex flex-col md:flex-row items-center opacity-0
+              ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} mb-12 md:mb-24`}
           >
-            <div className="text-xl font-extrabold text-blue-500 mb-2 golcircle">
-              {step.number}
+            <div className={`w-full md:w-1/2 p-6 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+              <div className="space-y-4 group">
+                <span className="inline-block text-purple-400 text-sm font-mono bg-purple-500/10 
+                  px-3 py-1 rounded-full">
+                  {step.number}
+                </span>
+                <h3 className="text-2xl font-bold text-white flex items-center gap-2
+                  ${index % 2 === 0 ? 'md:justify-end' : ''} group-hover:text-purple-400 transition-colors">
+                  {step.title}
+                </h3>
+                <p className="text-gray-300 group-hover:text-white transition-colors">
+                  {step.description}
+                </p>
+              </div>
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              {step.title}
-            </h3>
-            <p className="text-sm text-gray-600">
-              {step.description}
-            </p>
+
+            {/* Enhanced Circle and Icon */}
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full bg-purple-600/10 border-2 border-purple-600 
+                flex items-center justify-center relative z-10 my-4 md:my-0
+                transform transition-all duration-300 hover:scale-110 hover:rotate-12
+                hover:border-purple-400 hover:bg-purple-500/20 group">
+                <span className="text-3xl transform transition-transform duration-300 group-hover:scale-125">
+                  {step.icon}
+                </span>
+                {/* Pulse effect */}
+                <div className="absolute inset-0 rounded-full border-2 border-purple-400/20 
+                  animate-ping opacity-75"/>
+              </div>
+            </div>
+
+            <div className="hidden md:block w-full md:w-1/2"/>
           </div>
         ))}
       </div>
