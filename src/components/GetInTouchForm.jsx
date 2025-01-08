@@ -142,7 +142,7 @@ const GetInTouchForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-black py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-black-50 via-black py-16 px-4 mt-6">
       <motion.div 
         className="container mx-auto max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden"
         initial="hidden"
@@ -151,7 +151,7 @@ const GetInTouchForm = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left side - Hero Section */}
-          <div className="bg-gradient-to-br from-purple-600 to-blue-600 p-12 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-br from-purple-600 to-black p-12 text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <motion.div 
               className="relative z-10"

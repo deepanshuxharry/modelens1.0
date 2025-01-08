@@ -22,9 +22,9 @@ function HeroSection() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-[#1e293b] via-[#000] to-[#000] text-gray-100 py-16 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-[#1e293b] via-[#0a0a0a] to-[#0a0a0a] text-gray-100 py-16 relative overflow-hidden">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-300 to-white"></div>
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black via-black to-black"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">

@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"; // Ensure Router is imported
+import { motion } from 'framer-motion'; // Import framer-motion for smooth transitions
 import "./App.css";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -14,37 +15,30 @@ import WorkGallery from "./components/workgallery";
 import MakeupArtist from "./components/MakeupArtist";
 import Photographers from "./components/Photographers";
 
-
 function App() {
   return (
-    <Router>
+    <Router> {/* Wrap everything inside Router */}
       <div>
         <Navbar />
-       
-        <Routes path='/'>
+
+        <Routes>
           {/* Home page route */}
           <Route
             path="/"
             element={
               <>
-                <HeroSection />
-                <ServiceCards />
-                <OurModels/>
-{/*               
-                <Portfolio/> */}
-                <WorkGallery/>
-                <ProcessSection/>
-               
-
-             
-               {/* <TeamSection/> */}
-              
-              
+                <div className="pt-20">
+                  <HeroSection />
+                  <ServiceCards />
+                  <OurModels />
+                  <WorkGallery />
+                  <ProcessSection />
+                </div>
               </>
             }
           />
           
-          {/* Contact page route */}
+          {/* Other routes */}
           <Route path="/contact" element={<GetInTouchForm />} />
           <Route path="/services" element={<ServiceCards />} />
           <Route path="/our-models" element={<OurModels />} />
@@ -52,9 +46,10 @@ function App() {
           <Route path="/makeupartist" element={<MakeupArtist />} />
           <Route path="/photographers" element={<Photographers />} />
         </Routes>
+
         <Footer />
       </div>
-    </Router>
+    </Router>  
   );
 }
 

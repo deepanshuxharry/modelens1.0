@@ -171,7 +171,7 @@ function OurModels() {
     <div className="w-full px-4 py-16">
       <div className="max-w-7xl mx-auto">
          <div className="text-center mb-24">
-          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
+          <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
             bg-gradient-to-r from-white to-purple-400">
             Our Models
           </h1>

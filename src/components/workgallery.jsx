@@ -34,7 +34,7 @@ const WorkGallery = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-black py-16">
+    <div className="bg-gradient-to-br from-blackpy-16">
       <section className="mt-10">
         <div className="container mx-auto px-4">
         <div className="text-center mb-24">
