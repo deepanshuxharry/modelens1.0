@@ -7,29 +7,31 @@ function ModelCard({ name, image, description, gallery }) {
 
   return (
     <>
-      <div
-        className="relative w-80 h-[500px] group overflow-hidden rounded-2xl shadow-lg 
-          transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer m-4"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setIsModalOpen(true)}
-      >
-        <div className="absolute inset-0 z-0">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover transform transition-all duration-300 
-              group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-        </div>
-        <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
-          <h3
-            className={`text-3xl font-bold mb-2 transform transition-all duration-500 
-            ${isHovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-          >
-            {name}
-          </h3>
+      <div className="p-4 w-full">
+        <div
+          className="relative w-full h-[500px] group overflow-hidden rounded-2xl shadow-lg 
+            transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setIsModalOpen(true)}
+        >
+          <div className="absolute inset-0 z-0">
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover transition-transform duration-300 
+                group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+          </div>
+          <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
+            <h3
+              className={`text-3xl font-bold mb-2 transition-all duration-500 
+              ${isHovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
+            >
+              {name}
+            </h3>
+          </div>
         </div>
       </div>
 
@@ -85,15 +87,17 @@ function ModelCard({ name, image, description, gallery }) {
 
 function CategoryButton({ category, activeCategory, onClick }) {
   return (
-    <button
-      onClick={() => onClick(category)}
-      className={`px-6 py-2 rounded-full text-lg font-medium transition-all duration-300 m-2
-        ${activeCategory === category 
-          ? "bg-purple-600 text-white" 
-          : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
-    >
-      {category}
-    </button>
+    <div className="p-2">
+      <button
+        onClick={() => onClick(category)}
+        className={`px-6 py-2 rounded-full text-lg font-medium transition-all duration-300
+          ${activeCategory === category 
+            ? "bg-purple-600 text-white" 
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+      >
+        {category}
+      </button>
+    </div>
   );
 }
 
@@ -156,45 +160,35 @@ function OurModels() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8 lg:p-16">
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 text-white">
-        Our Models
-      </h1>
-      
-      {/* Category Filter Buttons */}
-      <div className="flex flex-wrap justify-center space-x-2 space-y-2 md:space-x-4 md:space-y-0 mb-16">
-        <CategoryButton 
-          category="all" 
-          activeCategory={activeCategory} 
-          onClick={handleCategoryChange} 
-        />
-        <CategoryButton 
-          category="fresher" 
-          activeCategory={activeCategory} 
-          onClick={handleCategoryChange} 
-        />
-        <CategoryButton 
-          category="intermediate" 
-          activeCategory={activeCategory} 
-          onClick={handleCategoryChange} 
-        />
-        <CategoryButton 
-          category="experienced" 
-          activeCategory={activeCategory} 
-          onClick={handleCategoryChange} 
-        />
-      </div>
+    <div className="w-full px-4 py-16">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 text-white">
+          Our Models
+        </h1>
+        
+        {/* Category Filter Buttons */}
+        <div className="flex flex-wrap justify-center mb-16">
+          {["all", "fresher", "intermediate", "experienced"].map((category) => (
+            <CategoryButton 
+              key={category}
+              category={category} 
+              activeCategory={activeCategory} 
+              onClick={handleCategoryChange} 
+            />
+          ))}
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
-        {filteredModels.map((model, index) => (
-          <ModelCard
-            key={index}
-            name={model.name}
-            image={model.profileUrl}
-            description={model.description}
-            gallery={model.galleryUrls}
-          />
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredModels.map((model, index) => (
+            <ModelCard
+              key={index}
+              name={model.name}
+              image={model.profileUrl}
+              description={model.description}
+              gallery={model.galleryUrls}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
