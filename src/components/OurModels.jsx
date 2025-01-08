@@ -1,9 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import client from "../sanity-config/sanityClient";
 
-function ModelCard({ name, image, description, gallery }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// Full-Screen Popup Gallery Component
+const FullScreenGalleryPopup = ({ isOpen, onClose, images }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg overflow-y-auto flex flex-col">
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 text-white bg-gray-700 rounded-full p-2 hover:bg-gray-500 z-50"
+      >
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Gallery Content */}
+      <div className="container mx-auto py-16 px-4">
+        <h2 className="text-white text-3xl font-bold text-center mb-8">Gallery</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map((image, index) => (
+            <div key={index} className="w-full h-full">
+              <img
+                src={image}
+                alt={`Gallery ${index + 1}`}
+                className="w-full h-full object-cover rounded-lg shadow-lg transition-transform duration-200 hover:scale-105"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ModelCard Component
+function ModelCard({ name, image, gallery }) {
+  const [showGallery, setShowGallery] = useState(false);
+  const allImages = [image, ...(gallery || [])];
 
   return (
     <>
@@ -11,80 +47,32 @@ function ModelCard({ name, image, description, gallery }) {
         <div
           className="relative w-full h-[500px] group overflow-hidden rounded-2xl shadow-lg 
             transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setShowGallery(true)}
         >
-          <div className="absolute inset-0 z-0">
-            <img
-              src={image}
-              alt={name}
-              className="w-full h-full object-cover transition-transform duration-300 
-                group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-          </div>
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-300 
+              group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
           <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
-            <h3
-              className={`text-3xl font-bold mb-2 transition-all duration-500 
-              ${isHovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}
-            >
-              {name}
-            </h3>
+            <h3 className="text-3xl font-bold">{name}</h3>
           </div>
         </div>
       </div>
 
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black/75 flex items-center justify-center z-50 p-4"
-          onClick={() => setIsModalOpen(false)}
-        >
-          <div
-            className="bg-white p-4 w-full h-full max-w-full max-h-full overflow-y-auto flex flex-col items-center justify-start"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-4xl font-bold text-center text-gray-900 mb-6">{name}'s Gallery</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full h-full p-2 overflow-auto">
-              {gallery.map((imgUrl, index) => (
-                <div
-                  key={index}
-                  className="relative w-full h-48 md:h-72 lg:h-96 p-2"
-                >
-                  <img
-                    src={imgUrl}
-                    alt={`${name} gallery ${index + 1}`}
-                    className="w-full h-full object-cover rounded-lg shadow-lg"
-                  />
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 text-white bg-red-600 hover:bg-red-700 p-2 rounded-full focus:outline-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Full-Screen Popup */}
+      <FullScreenGalleryPopup
+        isOpen={showGallery}
+        onClose={() => setShowGallery(false)}
+        images={allImages}
+      />
     </>
   );
 }
 
+// CategoryButton Component
 function CategoryButton({ category, activeCategory, onClick }) {
   return (
     <div className="p-2">
@@ -101,26 +89,26 @@ function CategoryButton({ category, activeCategory, onClick }) {
   );
 }
 
+// OurModels Component
 function OurModels() {
   const [models, setModels] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const result = await client.fetch(
-          `*[_type == "models"] {
+        const result = await client.fetch(`
+          *[_type == "models"] {
             name,
             category,
             "profileUrl": image.asset->url,
             description,
             "galleryUrls": gallery[].asset->url
-          }`
-        );
+          }
+        `);
         setModels(result);
         setFilteredModels(result);
         setIsLoading(false);
@@ -135,20 +123,16 @@ function OurModels() {
 
   const handleCategoryChange = (category) => {
     if (category === activeCategory) return;
-    
-    setIsAnimating(true);
+
     setActiveCategory(category);
-    
-    setTimeout(() => {
-      if (category === 'all') {
-        setFilteredModels(models);
-      } else {
-        setFilteredModels(models.filter(model => 
-          model.category.toLowerCase() === category.toLowerCase()
-        ));
-      }
-      setIsAnimating(false);
-    }, 300); // Match this with the transition duration
+
+    if (category === 'all') {
+      setFilteredModels(models);
+    } else {
+      setFilteredModels(models.filter(model => 
+        model.category.toLowerCase() === category.toLowerCase()
+      ));
+    }
   };
 
   if (isLoading) {
@@ -170,14 +154,14 @@ function OurModels() {
   return (
     <div className="w-full px-4 py-16">
       <div className="max-w-7xl mx-auto">
-         <div className="text-center mb-24">
+        <div className="text-center mb-24">
           <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
             bg-gradient-to-r from-white to-purple-400">
             Our Models
           </h1>
-          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full"/>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full" />
         </div>
-        
+
         {/* Category Filter Buttons */}
         <div className="flex flex-wrap justify-center mb-16">
           {["all", "fresher", "intermediate", "experienced"].map((category) => (
@@ -192,18 +176,12 @@ function OurModels() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredModels.map((model, index) => (
-            <div
+            <ModelCard
               key={index}
-              className={`transform transition-all duration-300 ease-in-out
-                ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
-            >
-              <ModelCard
-                name={model.name}
-                image={model.profileUrl}
-                description={model.description}
-                gallery={model.galleryUrls}
-              />
-            </div>
+              name={model.name}
+              image={model.profileUrl}
+              gallery={model.galleryUrls}
+            />
           ))}
         </div>
       </div>
