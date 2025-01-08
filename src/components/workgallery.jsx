@@ -37,9 +37,13 @@ const WorkGallery = () => {
     <div className="bg-gradient-to-br from-gray-900 to-black py-16">
       <section className="mt-10">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-12 text-white">
+        <div className="text-center mb-24">
+          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
             Work Gallery
           </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full"/>
+        </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {galleryItems.map((item, index) => (

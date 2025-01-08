@@ -107,6 +107,7 @@ function OurModels() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -133,14 +134,21 @@ function OurModels() {
   }, []);
 
   const handleCategoryChange = (category) => {
+    if (category === activeCategory) return;
+    
+    setIsAnimating(true);
     setActiveCategory(category);
-    if (category === 'all') {
-      setFilteredModels(models);
-    } else {
-      setFilteredModels(models.filter(model => 
-        model.category.toLowerCase() === category.toLowerCase()
-      ));
-    }
+    
+    setTimeout(() => {
+      if (category === 'all') {
+        setFilteredModels(models);
+      } else {
+        setFilteredModels(models.filter(model => 
+          model.category.toLowerCase() === category.toLowerCase()
+        ));
+      }
+      setIsAnimating(false);
+    }, 300); // Match this with the transition duration
   };
 
   if (isLoading) {
@@ -162,9 +170,13 @@ function OurModels() {
   return (
     <div className="w-full px-4 py-16">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 text-white">
-          Our Models
-        </h1>
+         <div className="text-center mb-24">
+          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
+            Our Models
+          </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full"/>
+        </div>
         
         {/* Category Filter Buttons */}
         <div className="flex flex-wrap justify-center mb-16">
@@ -180,13 +192,18 @@ function OurModels() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredModels.map((model, index) => (
-            <ModelCard
+            <div
               key={index}
-              name={model.name}
-              image={model.profileUrl}
-              description={model.description}
-              gallery={model.galleryUrls}
-            />
+              className={`transform transition-all duration-300 ease-in-out
+                ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+            >
+              <ModelCard
+                name={model.name}
+                image={model.profileUrl}
+                description={model.description}
+                gallery={model.galleryUrls}
+              />
+            </div>
           ))}
         </div>
       </div>

@@ -36,9 +36,14 @@ const ProcessSection = () => {
 
   return (
     <section className="py-10 px-5 -100 text-center mb-10 mt-[65px]">
-     <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-12 text-white mt-3">
-        The Process - Behind The Scenes
-      </h1>
+       <div className="text-center mb-24">
+          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
+            The Process - Behind The Scenes
+          </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full"/>
+        </div>
+
       <div className="flex flex-wrap justify-center gap-5">
         {processSteps.map((step, index) => (
           <div
