@@ -6,31 +6,30 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="bg-[#000] text-gray-800 border-t border-gray-200">
-      <div className=" mx-auto py-8 px-6 footer_css">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 foot_logo">
+      <div className="max-w-7xl mx-auto py-12 px-4 md:px-8 lg:px-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Logo */}
-          <div className="flex items-center justify-start ">
+          <div className="flex items-center justify-start">
             <img
               src="logo.png" // Replace with your logo path
               alt="Logo"
               className="h-10 w-10 mr-3"
             />
-
           </div>
 
           {/* Services */}
           <div>
-      <h3 className="font-semibold text-lg text-purple-600 mb-4">Services</h3>
-      <ul className="space-y-2">
-        <li>
-          <Link to="/our-models" className="hover:text-purple-500">
-            Models
-          </Link>
-        </li>
-        <li><a href="#" className="hover:text-purple-500">Photographer</a></li>
-        <li><a href="#" className="hover:text-purple-500">Makeup Artists</a></li>
-      </ul>
-    </div>
+            <h3 className="font-semibold text-lg text-purple-600 mb-4">Services</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/our-models" className="hover:text-purple-500">
+                  Models
+                </Link>
+              </li>
+              <li><a href="#" className="hover:text-purple-500">Photographer</a></li>
+              <li><a href="#" className="hover:text-purple-500">Makeup Artists</a></li>
+            </ul>
+          </div>
 
           {/* Contact */}
           <div>
@@ -56,12 +55,11 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><a href="https://drive.google.com/file/d/1V6d0rccG1SIHewm3YGgiBmJxO__a5cJB/view" className="hover:text-purple-500">Terms and Conditions</a></li>
               {/* <li><a href="#" className="hover:text-purple-500">Privacy Policy</a></li> */}
-
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-6 text-center text-gray-600 text-sm">
+        <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-600 text-sm">
           <p>&copy; {new Date().getFullYear()} LM Photography. All Rights Reserved.</p>
         </div>
       </div>
@@ -69,4 +67,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer;

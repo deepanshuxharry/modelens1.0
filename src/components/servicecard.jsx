@@ -26,44 +26,40 @@ const ServiceCard = ({ image, title, description, className = '' }) => {
 
 const ServiceCards = () => {
   return (
-<>
-<div className="bg-gradient-to-br from-[#000] via-[#000] to-[#000] text-white py-16 pb_6rem ">
-  {/* Centered Heading */}
-  <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-[-100px] text-white">
-  Our Services
-  </h1>
+    <div className="bg-gradient-to-br from-[#000] via-[#000] to-[#000] text-white py-20 px-4 md:px-8 lg:px-16">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 text-white">
+        Our Services
+      </h1>
 
-  {/* Service Cards */}
-  <div className="flex flex-wrap justify-center gap-10">
-  <Link to="/our-models">
-    <ServiceCard
-      image="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
-      title="Models"
-      description="Connect with professional model"
-      className="group"
-    />
-  </Link >
+      <div className="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-10 max-w-7xl mx-auto">
+        <Link to="/our-models">
+          <ServiceCard
+            image="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
+            title="Models"
+            description="Connect with professional model"
+            className="w-full sm:w-auto"
+          />
+        </Link>
 
-  <Link to="/photographers">
-  <ServiceCard
-      image="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
-      title="Photographers"
-      description="Find expert photographers to capture"
-      className="group"
-    /></Link>
+        <Link to="/photographers">
+          <ServiceCard
+            image="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
+            title="Photographers"
+            description="Find expert photographers to capture"
+            className="w-full sm:w-auto"
+          />
+        </Link>
 
-<Link to="/makeupartist">
-<ServiceCard
-      image="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
-      title="Makeup Artists"
-      description="Hire talented makeup"
-      className="group"
-    />
-</Link>   
-  </div>
-</div>
-
-    </>
+        <Link to="/makeupartist">
+          <ServiceCard
+            image="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
+            title="Makeup Artists"
+            description="Hire talented makeup"
+            className="w-full sm:w-auto"
+          />
+        </Link>
+      </div>
+    </div>
   );
 };
 
