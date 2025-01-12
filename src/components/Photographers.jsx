@@ -2,24 +2,30 @@ import React from 'react'
 
 function Photographers() {
     return (
-        <div className="text-center py-8">
-          <h1 className="text-2xl font-semibold text-purple-600 mb-6">photographers</h1>
+        <div className="text-center py-8 mt-12 mb-5 photomakeup">
+                <div className="text-center mb-12">
+          <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
+            Our Photographer
+          </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full" />
+        </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <img
-                src="M1.JPG"
-                alt="Anshika"
+                src="aanvicover.jpg"
+                alt="Aanvi"
                 className="rounded-lg shadow-lg mx-auto"
               />
-              <h2 className="mt-4 text-lg font-medium">Anshika</h2>
+              <h2 className="mt-4 text-lg font-medium">Aanvi</h2>
             </div>
             <div className="text-center">
               <img
-                src="M1.JPG"
-                alt="Sajal Hans"
+                src="karancover.JPG"
+                alt="karan "
                 className="rounded-lg shadow-lg mx-auto"
               />
-              <h2 className="mt-4 text-lg font-medium">Sajal Hans</h2>
+              <h2 className="mt-4 text-lg font-medium">karan</h2>
             </div>
           </div>
         </div>

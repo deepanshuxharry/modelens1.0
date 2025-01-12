@@ -37,7 +37,7 @@ const FullScreenGalleryPopup = ({ isOpen, onClose, images }) => {
 };
 
 // ModelCard Component
-function ModelCard({ name, image, gallery }) {
+function ModelCard({ name, image, gallery, description }) {  // Added description prop
   const [showGallery, setShowGallery] = useState(false);
   const allImages = [image, ...(gallery || [])];
 
@@ -52,12 +52,21 @@ function ModelCard({ name, image, gallery }) {
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover transition-transform duration-300 
+            className="w-full h-full object-cover transition-transform duration-500 
               group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-          <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
-            <h3 className="text-3xl font-bold">{name}</h3>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent 
+            opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
+          
+          {/* Content Container */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform 
+            duration-300 group-hover:translate-y-0">
+            <div className="space-y-2 transform transition-all duration-300">
+              <h3 className="text-3xl font-bold text-white mb-2">{name}</h3>
+              <p className="text-white/0 group-hover:text-white/90 transform 
+                transition-all duration-300 text-lg leading-relaxed opacity-0 
+                group-hover:opacity-100 max-w-lg">{description}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -152,9 +161,9 @@ function OurModels() {
   }
 
   return (
-    <div className="w-full px-4 py-16">
+    <div className="w-full px-4 py-16 mb-5 mt-5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
+        <div className="text-center mb-12">
           <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
             bg-gradient-to-r from-white to-purple-400">
             Our Models
@@ -181,6 +190,7 @@ function OurModels() {
               name={model.name}
               image={model.profileUrl}
               gallery={model.galleryUrls}
+              description={model.description}  // Added this line
             />
           ))}
         </div>

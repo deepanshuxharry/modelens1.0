@@ -2,12 +2,18 @@ import React from 'react';
 
 function MakeupArtist() {
   return (
-    <div className="text-center py-8">
-      <h1 className="text-2xl font-semibold text-purple-600 mb-6">Makeup Artist</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <div className="text-center py-8 mt-5 mb-5 photomakeup">
+              <div className="text-center mb-12 mt-5">
+          <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
+        Makeup Artist
+          </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full" />
+        </div>
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <div className="text-center">
           <img
-            src="M1.JPG"
+            src="anshikamua.JPG"
             alt="Anshika"
             className="rounded-lg shadow-lg mx-auto"
           />
@@ -15,7 +21,7 @@ function MakeupArtist() {
         </div>
         <div className="text-center">
           <img
-            src="M1.JPG"
+            src="saijal3.jpg"
             alt="Sajal Hans"
             className="rounded-lg shadow-lg mx-auto"
           />

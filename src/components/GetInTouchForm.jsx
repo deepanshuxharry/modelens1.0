@@ -1,117 +1,9 @@
-// import React from 'react';
-
-// const GetInTouchForm = () => {
-//   return (
-//     <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50 p-10 rounded-2xl shadow-lg max-w-4xl mx-auto mtb-80">
-//       <h2 className="text-3xl font-extrabold text-left text-gray-800 mb-6 md:text-4xl">
-//         Get in Touch
-//       </h2>
-//       <form
-//         action="https://formspree.io/f/your-form-id"  // Replace with your Formspree form endpoint  kr luga baad me kuldeep se puch 
-//         method="POST"
-//         className="grid grid-cols-1 gap-6 md:grid-cols-2"
-//       >
-//         <div className="md:col-span-1">
-//           <label htmlFor="fullName" className="block text-gray-700 font-medium mb-2">
-//             Full Name
-//           </label>
-//           <input
-//             type="text"
-//             id="fullName"
-//             name="fullName"
-//             className="border border-gray-300 px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
-//             placeholder="Enter your full name"
-//           />
-//         </div>
-//         <div className="md:col-span-1">
-//           <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
-//             Email
-//           </label>
-//           <input
-//             type="email"
-//             id="email"
-//             name="email"
-//             className="border border-gray-300 px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
-//             placeholder="Enter your email"
-//           />
-//         </div>
-//         <div className="md:col-span-1">
-//           <label htmlFor="mobileNo" className="block text-gray-700 font-medium mb-2">
-//             Mobile no.
-//           </label>
-//           <input
-//             type="tel"
-//             id="mobileNo"
-//             name="mobileNo"
-//             className="border border-gray-300 px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
-//             placeholder="Enter your mobile number"
-//           />
-//         </div>
-//         <div className="md:col-span-1">
-//           <label htmlFor="organisationLink" className="block text-gray-700 font-medium mb-2">
-//             Organisation's link
-//           </label>
-//           <input
-//             type="url"
-//             id="organisationLink"
-//             name="organisationLink"
-//             className="border border-gray-300 px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
-//             placeholder="Enter your organisation's link"
-//           />
-//         </div>
-//         <div className="md:col-span-2">
-//           <p className="text-gray-700 font-medium mb-3">What services are you interested in?</p>
-//           <div className="flex flex-wrap gap-3">
-//             {['Brand Photoshoot', 'Modelling', 'Photography', 'Brand Consultant', 'Makeup', 'Others'].map((service) => (
-//               <label key={service} className="flex items-center bg-gray-100 px-3 py-2 rounded-full cursor-pointer hover:bg-blue-100">
-//                 <input type="checkbox" name="services" value={service} className="hidden" />
-//                 <span className="text-sm text-gray-600">{service}</span>
-//               </label>
-//             ))}
-//           </div>
-//         </div>
-//         <div className="md:col-span-2">
-//           <p className="text-gray-700 font-medium mb-3">How did you hear about us?</p>
-//           <div className="flex gap-4">
-//             {['Instagram', 'LinkedIn', 'Referrals'].map((option) => (
-//               <label key={option} className="flex items-center bg-gray-100 px-3 py-2 rounded-full cursor-pointer hover:bg-blue-100">
-//                 <input type="radio" name="referral" value={option} className="hidden" />
-//                 <span className="text-sm text-gray-600">{option}</span>
-//               </label>
-//             ))}
-//           </div>
-//         </div>
-//         <div className="md:col-span-2">
-//           <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
-//             Want to add any specific message?
-//           </label>
-//           <textarea
-//             id="message"
-//             name="message"
-//             rows="4"
-//             className="border border-gray-300 px-4 py-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
-//             placeholder="Enter your message"
-//           ></textarea>
-//         </div>
-//         <div className="md:col-span-2 flex justify-start">
-//           <button
-//             type="submit"
-//             className="bg-defaulty text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-300"
-//           >
-//             Send
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default GetInTouchForm;
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 const GetInTouchForm = () => {
+  const form = useRef();
   const [focusedField, setFocusedField] = useState(null);
   const [formState, setFormState] = useState({
     fullName: '',
@@ -122,6 +14,44 @@ const GetInTouchForm = () => {
     source: '',
     message: ''
   });
+
+  // Add form submission handling
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const result = await emailjs.sendForm(
+        'service_yhvioqr', // Replace with your EmailJS service ID
+        'template_lq65whg', // Replace with your EmailJS template ID
+        form.current,
+        'Dq7Kwo1Hnie3a2OBC' // Replace with your EmailJS public key
+      );
+
+      if (result.text === 'OK') {
+        setSubmitStatus('success');
+        setFormState({
+          fullName: '',
+          email: '',
+          mobile: '',
+          organisationLink: '',
+          services: [],
+          source: '',
+          message: ''
+        });
+        form.current.reset();
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Error:', error);
+    }
+    setIsSubmitting(false);
+  };
 
   // Animation variants
   const containerVariants = {
@@ -142,9 +72,17 @@ const GetInTouchForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black-50 via-black py-16 px-4 mt-6">
+    <div className="min-h-screen bg-gradient-to-br from-black-50 via-black py-16 px-4 mt-6 contiform">
+           <div className="text-center mb-12">
+          <h1 className="text-6xl font-extrabold mb-6 mt-5 bg-clip-text text-transparent 
+            bg-gradient-to-r from-white to-purple-400">
+           Contact Us
+          </h1>
+          <div className="w-24 h-1 bg-[#d749ff] mx-auto rounded-full" />
+        </div>
+
       <motion.div 
-        className="container mx-auto max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+        className="container mx-auto max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden mt-5"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -189,6 +127,7 @@ const GetInTouchForm = () => {
                   modelensofficial@gmail.com
                 </a>
               </motion.div>
+
             </motion.div>
 
             {/* Decorative circles */}
@@ -199,16 +138,16 @@ const GetInTouchForm = () => {
           {/* Right side - Form */}
           <div className="p-12">
             <form 
-              action="https://formspree.io/f/your-form-id"
-              method="POST"
+              ref={form}
+              onSubmit={handleSubmit}
               className="space-y-8"
             >
               {/* Input fields */}
               {[
-                { name: 'fullName', label: 'Full Name', type: 'text',  },
-                { name: 'email', label: 'Email', type: 'email',  },
-                { name: 'mobile', label: 'Mobile no.', type: 'tel',  },
-                { name: 'organisationLink', label: "Organisation's link", type: 'url',  }
+                { name: 'user_name', label: 'Full Name', type: 'text' },
+                { name: 'user_email', label: 'Email', type: 'email' },
+                { name: 'user_mobile', label: 'Mobile no.', type: 'tel' },
+                { name: 'organisation_link', label: "Organisation's link", type: 'url' }
               ].map((field) => (
                 <motion.div 
                   key={field.name}
@@ -320,14 +259,36 @@ const GetInTouchForm = () => {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-medium
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-medium
                   hover:from-purple-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-300
-                  focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                  focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2
+                  ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
+                whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
+
+              {/* Status message */}
+              {submitStatus === 'success' && (
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-green-600 text-center"
+                >
+                  Thank you! Your message has been sent successfully.
+                </motion.p>
+              )}
+              {submitStatus === 'error' && (
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-red-600 text-center"
+                >
+                  Oops! Something went wrong. Please try again.
+                </motion.p>
+              )}
             </form>
           </div>
         </div>
